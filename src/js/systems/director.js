@@ -1,8 +1,9 @@
 export default class Director {
 	constructor(game) {
 		this._game = game;
-		/*获取Entity带有Camera属性组件的分组*/
+		/*获取Entity带有Camera属性组件的分组 进行镜头切换控制*/
 		this._group = game.ecs.getEntitiesByComponents('Camera');
+
 		this._stage = game.stage;
 	}
 

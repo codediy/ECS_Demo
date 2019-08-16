@@ -35,7 +35,25 @@ function init() {
 	/*
 	*  注册属性组件Class
 	*  需要在System前注册
-	*  System注册的时候 自动获取关系的属性分组 game.ecs.getEntitiesByComponents()
+	*  System注册的时候 自动获取关心的属性分组 game.ecs.getEntitiesByComponents()
+	*  System
+	*   -> Group
+	* 	-> {
+	* 	    	Component1
+	* 			-> {
+	* 				Entity1,
+	* 				Entity2,
+	* 				...
+	* 			},
+	* 			Component2
+	* 			-> {
+	* 				Entity1,
+	* 				Entity2,
+	* 				...
+	* 			,
+	* 			...
+	* 	   }
+	*
 	* */
 	game.ecs.registerComponents(
 		Position,
@@ -82,7 +100,6 @@ function init() {
 		);
 	/*场景添加实体*/
 	scene0.addSprite(square, 1);
-
 
 	/*实体*/
 	const player = game.ecs
@@ -199,7 +216,23 @@ function init() {
 	/*镜头控制*/
 	camera.getComponent('Camera').follow(player);
 	game.addCamera(camera);
-	/*加载资源*/
+	/*加载资源
+	* prepare() 加载完后 调用ready()回调
+	* ready()  回调 启动Beat()
+	* Beat()的渲染回调中 调用System的更新回调
+	* Game
+	* 	-> Beat
+	* 	-> {
+	* 			System1.update ->{
+	* 				Group -> {Entity,Entity}
+	* 			},
+	* 			System2.update -> {
+	* 				Group -> {Entity,Entity}
+	* 			},
+	* 	   }
+	*
+	*
+	* */
 	game.prepare();
 }
 
@@ -212,6 +245,7 @@ function render(delta) {
 	$statistics.textContent = 1000 / delta;
 }
 
+/*精灵渲染*/
 function createPlayerSprite() {
 	const canvas = document.createElement('canvas');
 	const ctx = canvas.getContext('2d');
@@ -224,6 +258,7 @@ function createPlayerSprite() {
 	return canvas;
 }
 
+/*背景渲染*/
 function createBGSprite() {
 	const canvas = document.createElement('canvas');
 	const ctx = canvas.getContext('2d');

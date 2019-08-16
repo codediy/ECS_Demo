@@ -4,11 +4,13 @@ export default class Keyboard {
 	constructor(game) {
 		game.input = game.input || {};
 		this._keyboard = game.input.keyboard = {};
-		
+
+		/*舞台*/
 		const stage = game.stage;
 		// Making the canvas focusable enables the keyboard events on it
 		stage.setAttribute('tabindex', '1');
 		stage.focus();
+		/*注册按键事件*/
 		stage.addEventListener('keydown', this.onKeyDown.bind(this));
 		stage.addEventListener('keyup', this.onKeyUp.bind(this));
 	}

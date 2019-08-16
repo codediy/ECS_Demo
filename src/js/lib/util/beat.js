@@ -1,6 +1,11 @@
 export default class Beat {
+    /*
+    * @fps 设置的渲染间隔
+    * @cb  渲染回调
+    * */
 	constructor(fps, cb) {
 		this._fps = fps;
+		/*渲染回调*/
 		this._cb = cb;
 
 		this._fpsInterval = 1000 / fps;
@@ -43,14 +48,17 @@ export default class Beat {
 		if (delta >= this._fpsInterval) {
 			// Adjust next execution time in case this frame took longer to execute
 			this._previousDeltaTime = currentTime - (delta % this._fpsInterval);
+			/*调用渲染回调*/
 			this._cb(currentTime - this._previousTime);
 
 			this._frameCount++;
+			/*记录上次渲染时间*/
 			this._previousTime = currentTime;
 		}
 
 		/*渲染*/
 		this._currentTime = currentTime;
+		/*注册下次渲染 每次渲染注册下次渲染*/
 		this._timerID = window.requestAnimationFrame(this._onFrame);
 	}
 };

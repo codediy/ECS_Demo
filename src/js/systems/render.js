@@ -6,22 +6,25 @@ export default class Render {
 	}
 
 	update() {
+		/*位置渲染*/
 		for (let entity of this._sprites.entities) {
 			const position = entity.getComponent('Position');
 			const sprite = entity.getComponent('Sprite');
-			
+
 			sprite.x = position.x;
 			sprite.y = position.y;
 		}
-		
+
+		/*背景渲染*/
 		for (let entity of this._bgs.entities) {
 			const bg = entity.getComponent('Background');
 			const translate = entity.getComponent('Translate');
-			
+
 			bg.dx = translate.x;
 			bg.dy = translate.y;
 		}
 
+		/*调用游戏渲染*/
 		this._game.render();
 	}
 }

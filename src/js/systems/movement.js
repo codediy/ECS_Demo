@@ -14,6 +14,7 @@ export default class Movement {
 			const direction = entity.getComponent('Direction');
 			const keyboard = this._game.input.keyboard;
 
+			/*事件响应*/
 			if(keyboard.left) {
 				position.x -= velocity.x;
 			}

@@ -14,8 +14,11 @@ export default class Game {
 	constructor(canvas, rendererType, cfg, states) {
 		this._cfg = cfg;
 		this._states = states;
+		/*渲染方式*/
 		this._graphics = new Rrr(canvas, rendererType, cfg);
+		/*渲染帧控制*/
 		this._beat = new Beat(cfg.fps, this.frame.bind(this));
+		/*资源加载*/
 		this._loader = new Loader(true);
 		// Default properties
 		this._scenes = [];
@@ -67,8 +70,11 @@ export default class Game {
 		this._beat.start();
 	}
 
+	/*帧渲染回调*/
 	frame(delta) {
+		/*更新画面 调用System进行更新*/
 		ecs.update(delta);
+		/*渲染场景*/
 		this._states.render && this._states.render(delta);
 	}
 

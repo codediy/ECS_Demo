@@ -7,10 +7,11 @@ export default class Puppeter {
 	}
 
 	update(delta) {
+		/*转向控制*/
 		for (let entity of this._group.entities) {
 			const sprite = entity.getComponent('Sprite');
 			const direction = entity.getComponent('Direction');
-			
+
 			if(direction) {
 				if(direction.left) {
 					sprite.transformation.scaleX = -abs(sprite.transformation.scaleX);
